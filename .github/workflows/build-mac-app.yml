@@ -33,13 +33,13 @@ jobs:
       - name: Zip the app
         run: |
           cd dist
-          zip -r NaverRankChecker.zip NaverRankChecker.app
+          zip -r PostViewcountChecker.zip PostViewcountChecker.app
 
       - name: Create GitHub Release and Upload
         uses: softprops/action-gh-release@v1
         with:
           name: PostViewcountChecker
           tag_name: v1.0.${{ github.run_number }}
-          files: dist/NaverRankChecker.zip
+          files: dist/PostViewcountChecker.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
