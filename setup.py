@@ -13,7 +13,7 @@ OPTIONS = {
     'includes': [
         'datetime', 'pytz', 'unicodedata', 'cmath'
     ],
-    'packages': ['pandas', 'openpyxl', 'numpy', 'dateutil', 'selenium'],
+    'packages': ['pandas', 'openpyxl', 'numpy', 'dateutil', 'selenium', 'xlsxwriter'],
     'excludes': ['tkinter'],
     'resources': ['resources/chromedriver'],  # ✅ 이 옵션도 명시해줌 (중복 허용)
     'plist': {
