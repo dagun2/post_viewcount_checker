@@ -13,9 +13,16 @@ OPTIONS = {
     'includes': [
         'datetime', 'pytz', 'unicodedata', 'cmath'
     ],
-    'packages': ['pandas', 'openpyxl', 'numpy', 'dateutil', 'selenium', 'xlsxwriter'],
+    'packages': [
+        'pandas',
+        'openpyxl',
+        'numpy',
+        'dateutil',
+        'selenium',
+        'xlsxwriter'  # ✅ 반드시 포함
+    ],
     'excludes': ['tkinter'],
-    'resources': ['resources/chromedriver'],  # ✅ 이 옵션도 명시해줌 (중복 허용)
+    # 'resources': ['resources/chromedriver'],  ← ❌ py2app에서는 무시될 수 있음 (data_files로 충분)
     'plist': {
         'CFBundleName': 'PostViewcountChecker',
         'CFBundleDisplayName': 'PostViewcountChecker',
@@ -34,7 +41,7 @@ OPTIONS = {
 setup(
     app=APP,
     name='PostViewcountChecker',
-    data_files=DATA_FILES,  # ✅ chromedriver 포함
+    data_files=DATA_FILES,
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
     install_requires=[
@@ -43,5 +50,6 @@ setup(
         'openpyxl',
         'numpy',
         'python-dateutil',
+        'XlsxWriter'  # ✅ 여기에도 반드시 필요 (대소문자 관계 없이 OK)
     ]
 )
