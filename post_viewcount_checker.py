@@ -22,6 +22,16 @@ def get_executable_dir():
     else:
         return os.path.dirname(os.path.abspath(__file__))
 
+def resource_path(relative_path):
+    # .app 실행 시 base path는 Contents/MacOS가 됨
+    if getattr(sys, 'frozen', False):
+        base_path = os.path.abspath(os.path.join(os.path.dirname(sys.executable), "../Resources"))
+    else:
+        base_path = os.path.dirname(__file__)
+    return os.path.join(base_path, relative_path)
+
+CHROMEDRIVER_PATH = resource_path("resources/chromedriver")
+
 BASE_DIR = get_executable_dir()
 URL_FILE_PATH = os.path.join(BASE_DIR, "네이버_검색어.xlsx")
 FILES_DIR = os.path.join(BASE_DIR, "files")
@@ -50,7 +60,7 @@ chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
-CHROMEDRIVER_PATH = os.path.join(BASE_DIR, "resources", "chromedriver")
+#CHROMEDRIVER_PATH = os.path.join(BASE_DIR, "resources", "chromedriver")
 #driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
 service = Service(executable_path=CHROMEDRIVER_PATH)
 driver = webdriver.Chrome(service=service, options=chrome_options)
