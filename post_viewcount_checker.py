@@ -19,7 +19,7 @@ from selenium.webdriver.chrome.service import Service  # ✅ 이 줄 추가
 
 def get_executable_dir():
     if getattr(sys, 'frozen', False):
-        return os.path.abspath(os.path.join(os.path.dirname(sys.executable), "../.."))
+        return os.path.abspath(os.path.join(os.path.dirname(sys.executable), "../../../"))
     else:
         return os.path.dirname(os.path.abspath(__file__))
 
@@ -38,6 +38,10 @@ URL_FILE_PATH = os.path.join(BASE_DIR, "네이버_검색어.xlsx")
 FILES_DIR = os.path.join(BASE_DIR, "files")
 BACKUP_DIR = os.path.join(FILES_DIR, "백업")
 ACCUMULATED_FILE_PATH = os.path.join(FILES_DIR, "카페글_조회수_수집_누적.xlsx")
+
+print(f"[DEBUG] BASE_DIR: {BASE_DIR}")
+print(f"[DEBUG] ACCUMULATED_FILE_PATH: {ACCUMULATED_FILE_PATH}")
+print(f"[DEBUG] 파일 존재 여부: {os.path.exists(ACCUMULATED_FILE_PATH)}")
 
 os.makedirs(FILES_DIR, exist_ok=True)
 os.makedirs(BACKUP_DIR, exist_ok=True)
@@ -64,8 +68,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 
 service = Service(executable_path=CHROMEDRIVER_PATH)
 driver = webdriver.Chrome(service=service, options=chrome_options)
-print(f"✅ 사용되는 chromedriver 경로: {CHROMEDRIVER_PATH}")
-print(f"✅ 파일 존재 여부: {os.path.exists(CHROMEDRIVER_PATH)}")
+
 driver.get("https://naver.com")
 print("🔓 네이버 로그인 시간을 60초 드립니다...")
 time.sleep(60)
