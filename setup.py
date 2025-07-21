@@ -1,6 +1,6 @@
 from setuptools import setup
 
-APP = ['post_view_count_checker.py']
+APP = ['post_viewcount_checker.py']
 DATA_FILES = []
 
 OPTIONS = {
