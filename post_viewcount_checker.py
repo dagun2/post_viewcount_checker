@@ -60,8 +60,7 @@ chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
-#CHROMEDRIVER_PATH = os.path.join(BASE_DIR, "resources", "chromedriver")
-#driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, options=chrome_options)
+
 service = Service(executable_path=CHROMEDRIVER_PATH)
 driver = webdriver.Chrome(service=service, options=chrome_options)
 print(f"✅ 사용되는 chromedriver 경로: {CHROMEDRIVER_PATH}")
