@@ -19,10 +19,8 @@ from selenium.webdriver.chrome.service import Service  # ✅ 이 줄 추가
 
 def get_executable_dir():
     if getattr(sys, 'frozen', False):
-        # .app이 있는 폴더
-        return os.path.dirname(os.path.abspath(sys.executable))
+        return os.path.abspath(os.path.join(os.path.dirname(sys.executable), "../.."))
     else:
-        # 스크립트가 있는 폴더
         return os.path.dirname(os.path.abspath(__file__))
 
 def resource_path(relative_path):
