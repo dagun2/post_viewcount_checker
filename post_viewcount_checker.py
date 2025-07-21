@@ -14,6 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from pandas import ExcelWriter
+from selenium.webdriver.chrome.service import Service  # ✅ 이 줄 추가
 
 def get_executable_dir():
     if getattr(sys, 'frozen', False):
