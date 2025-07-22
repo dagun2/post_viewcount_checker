@@ -50,6 +50,6 @@ setup(
         'openpyxl',
         'numpy',
         'python-dateutil',
-        'xlsxWriter'  # ✅ 여기에도 반드시 필요 (대소문자 관계 없이 OK)
+        'xlsxwriter'  # ✅ 여기에도 반드시 필요 (대소문자 관계 없이 OK)
     ]
 )
