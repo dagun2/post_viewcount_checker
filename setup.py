@@ -5,7 +5,11 @@ APP = ['post_viewcount_checker.py']
 OPTIONS = {
     'argv_emulation': False,
     'emulate_shell_environment': True,
-    'includes': [],                 # 꼭 필요할 때만 채우세요
+    'includes': [
+        'cmath',
+        'unicodedata',  # 표준모듈 강제 포함(한글 파일명 등에서 유용)
+        'encodings'     # 인코딩 테이블 누락 방지
+    ],                 # 꼭 필요할 때만 채우세요
     'packages': [                   # 순수 파이썬이 아닌 패키지는 여기로
         'pandas',
         'openpyxl',
