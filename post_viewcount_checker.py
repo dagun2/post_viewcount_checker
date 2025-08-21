@@ -122,8 +122,14 @@ def open_log_after_finish(path: str):
         log.warning(f"로그 자동 열기 실패(무시 가능): {e}")
 
 def human_delay(min_s=0.6, max_s=1.4):
-    """봇 탐지 완화용 사람같은 랜덤 지연"""
+    """봇 탐지 완화용 기본 랜덤 지연(필요 시 다른 곳에서 사용)"""
     time.sleep(random.uniform(min_s, max_s))
+
+def pause_between_pages():
+    """페이지 전환 사이 3~5초 랜덤 대기(필수 요청 반영)"""
+    sec = random.uniform(3.0, 5.0)
+    log.info(f"다음 페이지로 넘어가기 전 대기: {sec:.2f}s")
+    time.sleep(sec)
 
 
 # =========================
@@ -187,7 +193,7 @@ try:
         except TimeoutException:
             log.warning("페이지 로드 타임아웃 → 0으로 기록하고 다음으로 진행")
             CAFE_VIEW_LIST.append([keyword, visit_cafe_url, 0])
-            human_delay(1.0, 2.0)
+            pause_between_pages()  # ← 전환 간격 3~5초
             continue
 
         # iframe 진입
@@ -197,13 +203,10 @@ try:
             driver.switch_to.frame(iframe)
 
             # 조회수 요소 탐색(텍스트/클래스 모두 대응)
-            # - contains(., '조회') 텍스트 포함
-            # - 흔한 카운터 클래스명 대비: view, count 등
             xpath_candidates = [
                 "//span[contains(., '조회')]",
                 "//*[contains(@class,'view') and (self::span or self::em or self::div)]",
                 "//*[contains(@class,'count') and (self::span or self::em or self::div)]",
-                # 필요시 더 추가
             ]
 
             elem = None
@@ -212,7 +215,6 @@ try:
                     elem = WebDriverWait(driver, 4).until(
                         EC.presence_of_element_located((By.XPATH, xp))
                     )
-                    # 가장 먼저 잡힌 후보를 사용
                     text = elem.text.strip()
                     val = safe_int_from_text(text)
                     if val > 0:
@@ -221,7 +223,7 @@ try:
                 except TimeoutException:
                     continue
 
-            # 후보들에서 못 찾았으면 마지막으로 한 번 더 시도(원래 XPath가 있다면 여기에)
+            # 후보들에서 못 찾았으면 백업 XPath 한 번 더
             if count == 0:
                 try:
                     elem = driver.find_element(By.XPATH, "/html/body/div/div/div/div[2]/div[1]/div[2]/div[2]/div[2]/span[2]")
@@ -251,8 +253,8 @@ try:
 
         CAFE_VIEW_LIST.append([keyword, visit_cafe_url, count])
 
-        # 사람같은 지연(페이지별)
-        human_delay(0.8, 1.8)
+        # ← 페이지 전환 사이 필수 대기(3~5초)
+        pause_between_pages()
 
 finally:
     try:
