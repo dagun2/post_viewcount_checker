@@ -2,27 +2,19 @@ from setuptools import setup
 
 APP = ['post_viewcount_checker.py']
 
-# ✅ chromedriver 포함
-DATA_FILES = [
-    ('resources', ['resources/chromedriver'])
-]
-
 OPTIONS = {
     'argv_emulation': False,
     'emulate_shell_environment': True,
-    'includes': [
-        'datetime', 'pytz', 'unicodedata', 'cmath'
-    ],
-    'packages': [
+    'includes': [],                 # 꼭 필요할 때만 채우세요
+    'packages': [                   # 순수 파이썬이 아닌 패키지는 여기로
         'pandas',
         'openpyxl',
         'numpy',
-        'dateutil',
         'selenium',
-        'xlsxwriter'  # ✅ 반드시 포함
+        'xlsxwriter',
+        'dateutil',                 # or python-dateutil (install_requires에 기재)
     ],
     'excludes': ['tkinter'],
-    # 'resources': ['resources/chromedriver'],  ← ❌ py2app에서는 무시될 수 있음 (data_files로 충분)
     'plist': {
         'CFBundleName': 'PostViewcountChecker',
         'CFBundleDisplayName': 'PostViewcountChecker',
@@ -41,15 +33,14 @@ OPTIONS = {
 setup(
     app=APP,
     name='PostViewcountChecker',
-    data_files=DATA_FILES,
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
     install_requires=[
-        'selenium',
+        'selenium>=4.10',     # Selenium Manager 포함
         'pandas',
         'openpyxl',
         'numpy',
         'python-dateutil',
-        'xlsxwriter'  # ✅ 여기에도 반드시 필요 (대소문자 관계 없이 OK)
+        'xlsxwriter'
     ]
 )
