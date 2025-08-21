@@ -8,6 +8,7 @@ import sys
 import logging
 import platform
 import subprocess
+import cmath, unicodedata, encodings  # noqa: F401
 from datetime import datetime
 
 from selenium import webdriver
