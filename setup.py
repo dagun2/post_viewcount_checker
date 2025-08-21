@@ -6,17 +6,12 @@ OPTIONS = {
     'argv_emulation': False,
     'emulate_shell_environment': True,
     'includes': [
-        'cmath',
-        'unicodedata',  # 표준모듈 강제 포함(한글 파일명 등에서 유용)
+        'cmath',        # ← 핵심
+        'unicodedata',  # 한글 파일명/경로에 유용
         'encodings'     # 인코딩 테이블 누락 방지
-    ],                 # 꼭 필요할 때만 채우세요
-    'packages': [                   # 순수 파이썬이 아닌 패키지는 여기로
-        'pandas',
-        'openpyxl',
-        'numpy',
-        'selenium',
-        'xlsxwriter',
-        'dateutil',                 # or python-dateutil (install_requires에 기재)
+    ],
+    'packages': [
+        'pandas', 'openpyxl', 'numpy', 'selenium', 'xlsxwriter', 'dateutil'
     ],
     'excludes': ['tkinter'],
     'plist': {
@@ -40,11 +35,7 @@ setup(
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
     install_requires=[
-        'selenium>=4.10',     # Selenium Manager 포함
-        'pandas',
-        'openpyxl',
-        'numpy',
-        'python-dateutil',
-        'xlsxwriter'
+        'selenium>=4.10', 'pandas', 'openpyxl', 'numpy',
+        'python-dateutil', 'xlsxwriter'
     ]
 )
